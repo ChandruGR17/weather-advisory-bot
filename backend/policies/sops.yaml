@@ -1,0 +1,212 @@
+sops:
+
+  - id: SOP-001
+    name: Extreme Heat for Outdoor Exercise
+    category: outdoor_exercise
+    severity: high
+    description: >
+      If the temperature is 40°C or higher and the user is asking about
+      outdoor exercise, advise against the activity during the current
+      conditions and recommend moving the activity indoors or to a cooler time.
+    conditions:
+      activity_categories:
+        - outdoor_exercise
+      temperature_2m:
+        min: 40
+    advice: >
+      Avoid outdoor exercise in the current extreme heat. Consider moving
+      the activity indoors or postponing it until conditions are cooler.
+
+  - id: SOP-002
+    name: High UV for Outdoor Exercise
+    category: outdoor_exercise
+    severity: moderate
+    description: >
+      If the UV index is 8 or higher and the user is asking about outdoor
+      exercise, advise against unprotected outdoor exercise and recommend
+      sun protection or moving the activity to a lower-UV period.
+    conditions:
+      activity_categories:
+        - outdoor_exercise
+      uv_index:
+        min: 8
+    advice: >
+      UV exposure is high. Avoid unprotected outdoor exercise and use
+      appropriate sun protection or move the activity to a lower-UV period.
+
+  - id: SOP-003
+    name: Strong Wind and Cycling
+    category: outdoor_exercise
+    severity: high
+    description: >
+      If wind speed exceeds 40 km/h and the user mentions cycling,
+      treat the wind as a safety risk rather than only a comfort issue.
+    conditions:
+      activity_categories:
+        - cycling
+      wind_speed_10m:
+        min: 40
+    advice: >
+      Strong winds create a safety risk for cycling under the current
+      conditions. Avoid cycling while these wind conditions persist.
+
+  - id: SOP-004
+    name: Heavy Precipitation and Outdoor Exercise
+    category: outdoor_exercise
+    severity: high
+    description: >
+      If current precipitation is at least 5 mm and the user asks about
+      outdoor exercise, advise against the activity under the current
+      conditions.
+    conditions:
+      activity_categories:
+        - outdoor_exercise
+      precipitation:
+        min: 5
+    advice: >
+      Current precipitation is heavy enough to make outdoor exercise
+      unsuitable under this policy. Consider postponing the activity.
+
+  - id: SOP-005
+    name: High Rain Probability for Travel
+    category: travel
+    severity: moderate
+    description: >
+      If precipitation probability is 70% or higher and the user asks
+      about travel, warn about possible weather-related delays and recommend
+      checking current alerts before departure.
+    conditions:
+      activity_categories:
+        - travel
+      precipitation_probability:
+        min: 70
+    advice: >
+      There is a high probability of precipitation. Travel may be affected
+      by weather, so check current alerts and conditions before departing.
+
+  - id: SOP-006
+    name: Strong Wind and Two-Wheeler Travel
+    category: travel
+    severity: high
+    description: >
+      If wind speed exceeds 40 km/h and the user asks about travelling
+      on a motorcycle, scooter, or other two-wheeler, treat the wind as
+      a safety risk.
+    conditions:
+      activity_categories:
+        - two_wheeler
+      wind_speed_10m:
+        min: 40
+    advice: >
+      Strong winds create a safety risk for two-wheeler travel. Consider
+      postponing the trip or using another mode of transportation.
+
+  - id: SOP-007
+    name: Poor Visibility During Travel
+    category: travel
+    severity: moderate
+    description: >
+      If precipitation is at least 2 mm and the user asks about travel,
+      warn that active precipitation may reduce visibility and affect travel.
+    conditions:
+      activity_categories:
+        - travel
+      precipitation:
+        min: 2
+    advice: >
+      Current precipitation may reduce visibility and affect travel.
+      Allow extra time and check current road and weather conditions
+      before departing.
+
+  - id: SOP-008
+    name: Extreme Heat and Children
+    category: vulnerable_groups
+    severity: high
+    description: >
+      If the temperature is 38°C or higher and the user asks about
+      taking a child outdoors, advise against prolonged outdoor activity
+      in the current heat.
+    conditions:
+      activity_categories:
+        - children
+      temperature_2m:
+        min: 38
+    advice: >
+      The current temperature is very high. Avoid prolonged outdoor
+      activity for children and consider an indoor or cooler-time activity.
+
+  - id: SOP-009
+    name: Extreme Heat and Elderly People
+    category: vulnerable_groups
+    severity: high
+    description: >
+      If the temperature is 38°C or higher and the user asks about an
+      elderly person doing an outdoor activity, advise against prolonged
+      outdoor exposure in the current heat.
+    conditions:
+      activity_categories:
+        - elderly
+      temperature_2m:
+        min: 38
+    advice: >
+      The current temperature is very high. Avoid prolonged outdoor
+      exposure and consider moving the activity to a cooler period or indoors.
+
+  - id: SOP-010
+    name: Severe Conditions and Children
+    category: vulnerable_groups
+    severity: high
+    description: >
+      If precipitation is at least 5 mm or wind speed is at least 40 km/h
+      and the user asks about taking children outdoors, advise against the
+      outdoor activity under the current conditions.
+    conditions:
+      activity_categories:
+        - children
+      any:
+        - precipitation:
+            min: 5
+        - wind_speed_10m:
+            min: 40
+    advice: >
+      Current weather conditions are unsuitable for taking children outdoors.
+      Consider postponing the activity until conditions improve.
+
+  - id: SOP-011
+    name: Severe Weather for General Outdoor Activity
+    category: general_outdoor
+    severity: high
+    description: >
+      If precipitation is at least 5 mm or wind speed is at least 40 km/h,
+      and the user asks about a general outdoor activity, advise against
+      the activity under the current conditions.
+    conditions:
+      activity_categories:
+        - general_outdoor
+      any:
+        - precipitation:
+            min: 5
+        - wind_speed_10m:
+            min: 40
+    advice: >
+      Current weather conditions are unsuitable for the requested outdoor
+      activity. Consider postponing it until conditions improve.
+
+  - id: SOP-012
+    name: Picnic Suitability
+    category: general_outdoor
+    severity: low
+    description: >
+      For questions about whether today is suitable for a picnic or similar
+      relaxed outdoor activity, consider multiple weather factors together.
+      This is a fuzzy policy rather than a single-threshold rule.
+    conditions:
+      activity_categories:
+        - picnic
+    fuzzy: true
+    advice: >
+      For a picnic, consider the current combination of temperature,
+      precipitation, precipitation probability, wind, and UV conditions.
+      If none of the higher-severity policies apply, these conditions can
+      be described as suitable or less suitable based on the available
+      weather values.
